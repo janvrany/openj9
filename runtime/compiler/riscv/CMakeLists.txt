@@ -20,18 +20,11 @@
 # SPDX-License-Identifier: EPL-2.0 OR Apache-2.0 OR GPL-2.0 WITH Classpath-exception-2.0 OR LicenseRef-GPL-2.0 WITH Assembly-exception
 ################################################################################
 
-set(J9VM_ARCH_RISCV ON CACHE BOOL "")
-set(J9VM_ENV_HAS_FPU ON CACHE BOOL "")
-set(J9VM_ENV_LITTLE_ENDIAN ON CACHE BOOL "")
-set(J9VM_ENV_DATA64 ON CACHE BOOL "")
+# Manage cross compilation here: 
+# 
+if(TR_HOST_ARCH STREQUAL "riscv")
+	add_subdirectory(runtime)
+endif()
 
-set(J9VM_GC_ENABLE_DOUBLE_MAP OFF CACHE BOOL "")
-set(J9VM_INTERP_SIG_QUIT_THREAD_USES_SEMAPHORES OFF CACHE BOOL "")
-set(J9VM_JIT_NEW_DUAL_HELPERS OFF CACHE BOOL "")
-set(J9VM_INTERP_JIT_ON_BY_DEFAULT OFF CACHE BOOL "")
-set(J9VM_OPT_ZERO ON CACHE BOOL "")
-
-set(OMR_GC_CONCURRENT_SCAVENGER ON CACHE BOOL "")
-
-include("${CMAKE_CURRENT_LIST_DIR}/linux.cmake")
-include("${CMAKE_CURRENT_LIST_DIR}/common.cmake")
+add_subdirectory(codegen)
+add_subdirectory(env)

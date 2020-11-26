@@ -43,7 +43,7 @@ elseif(OMR_ARCH_ARM)
 elseif(OMR_ARCH_AARCH64)
 	target_compile_definitions(j9vm_compiler_defines INTERFACE TR_TARGET_ARM64 TR_HOST_ARM64)
 elseif(OMR_ARCH_RISCV)
-	target_compile_definitions(j9vm_compiler_defines INTERFACE TR_HOST_RISCV TR_TARGET_RISCV)
+	target_compile_definitions(j9vm_compiler_defines INTERFACE TR_TARGET_RISCV TR_HOST_RISCV)
 else()
 	message(FATAL_ERROR "Unsupported architecture")
 endif() #TODO OTHER PLATFORMS
