@@ -36,7 +36,10 @@ endforeach()
 
 # /Ox = enable most speed optimizations
 # /Zi = produce separate pdb files
-list(APPEND OMR_PLATFORM_COMPILE_OPTIONS  /Ox /Zi)
+if(NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
+    list(APPEND OMR_PLATFORM_COMPILE_OPTIONS /Ox)
+endif()
+list(APPEND OMR_PLATFORM_COMPILE_OPTIONS /Zi)
 
 list(APPEND OMR_PLATFORM_EXE_LINKER_OPTIONS /debug /opt:icf /opt:ref)
 list(APPEND OMR_PLATFORM_SHARED_LINKER_OPTIONS /debug /opt:icf /opt:ref)
