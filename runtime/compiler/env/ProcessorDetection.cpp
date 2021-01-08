@@ -289,6 +289,16 @@ portLibCall_getARMProcessorType()
    return tp;
    }
 
+static TR_Processor
+portLibCall_getRISCVProcessorType()
+   {
+   if (sizeof(void*) == 8)
+      {
+      return TR_RV64G;
+      }
+   TR_ASSERT(false, "Unsupported RISC-V processor type");
+   }
+
 void
 TR_J9VM::initializeProcessorType()
    {
@@ -354,6 +364,13 @@ TR_J9VM::initializeProcessorType()
       {
       OMRProcessorDesc processorDescription = TR::Compiler->target.cpu.getProcessorDescription();
       TR::Compiler->target.cpu = TR::CPU::customize(processorDescription);
+      }
+   else if (TR::Compiler->target.cpu.isRISCV())
+      {
+      TR::Compiler->target.cpu.setProcessor(portLibCall_getRISCVProcessorType());
+
+      TR_ASSERT(TR::Compiler->target.cpu.id() >= TR_FirstRISCVProcessor
+             && TR::Compiler->target.cpu.id() <= TR_LastRISCVProcessor, "Not a valid RISC-V Processor Type");
       }
    else
       {
