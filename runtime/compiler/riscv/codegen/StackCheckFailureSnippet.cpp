@@ -23,19 +23,21 @@
 #include "codegen/StackCheckFailureSnippet.hpp"
 
 #include "codegen/CodeGenerator.hpp"
+#include "codegen/RVInstruction.hpp"
 
 uint8_t *
 TR::RVStackCheckFailureSnippet::emitSnippetBody()
    {
-   TR_UNIMPLEMENTED();
-
    uint8_t *buffer = cg()->getBinaryBufferCursor();
-   return buffer;
+   TR::Register* zero = cg()->machine()->getRealRegister(TR::RealRegister::zero);
+
+   // For now, generate trap...
+   *(uint32_t*)buffer = TR_RISCV_ITYPE(TR::InstOpCode::_ebreak, zero, zero, 0);
+   return buffer + RISCV_INSTRUCTION_LENGTH;
    }
 
 uint32_t
 TR::RVStackCheckFailureSnippet::getLength(int32_t estimatedSnippetStart)
    {
-   TR_UNIMPLEMENTED();
-   return 0;
+   return 1 * RISCV_INSTRUCTION_LENGTH;
    }
