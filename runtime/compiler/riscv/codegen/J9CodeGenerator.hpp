@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2019, 2020 IBM Corp. and others
+ * Copyright (c) 2021, 2021 IBM Corp. and others
  *
  * This program and the accompanying materials are made available under
  * the terms of the Eclipse Public License 2.0 which accompanies this
@@ -99,7 +99,15 @@ public:
     * \brief Determines whether the code generator supports stack allocations
     */
    bool supportsStackAllocations() { return true; }
-   };
+
+   /**
+    * \brief Returns a temporary (scratch) register to use in various
+    * code sequences that are not subject to normal register allocation
+    * (prologue, epilogue, snippets).
+    */
+   TR::Register *getTempRegister();
+
+   }; // class OMR_EXTENSIBLE CodeGenerator...
 
 }
 

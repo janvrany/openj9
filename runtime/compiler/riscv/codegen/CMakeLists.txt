@@ -27,4 +27,5 @@ j9jit_files(
 	riscv/codegen/J9TreeEvaluator.cpp
 	riscv/codegen/J9UnresolvedDataSnippet.cpp
 	riscv/codegen/StackCheckFailureSnippet.cpp
+	riscv/codegen/RVPrivateLinkage.cpp
 )

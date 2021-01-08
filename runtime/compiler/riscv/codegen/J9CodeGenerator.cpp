@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2019, 2020 IBM Corp. and others
+ * Copyright (c) 2021, 2021 IBM Corp. and others
  *
  * This program and the accompanying materials are made available under
  * the terms of the Eclipse Public License 2.0 which accompanies this
@@ -22,6 +22,7 @@
 
 #include "codegen/AheadOfTimeCompile.hpp"
 #include "codegen/RVSystemLinkage.hpp"
+#include "codegen/RVPrivateLinkage.hpp"
 #include "codegen/CodeGenerator.hpp"
 #include "codegen/CodeGenerator_inlines.hpp"
 #include "codegen/GenerateInstructions.hpp"
@@ -73,10 +74,10 @@ J9::RV::CodeGenerator::createLinkage(TR_LinkageConventions lc)
       case TR_System:
          linkage = new (self()->trHeapMemory()) TR::RVSystemLinkage(self());
          break;
-#if 0
       case TR_Private:
          linkage = new (self()->trHeapMemory()) J9::RV::PrivateLinkage(self());
          break;
+#if 0
       case TR_CHelper:
       case TR_Helper:
          linkage = new (self()->trHeapMemory()) J9::RV::HelperLinkage(self(), lc);
@@ -120,4 +121,10 @@ J9::RV::CodeGenerator::generateSwitchToInterpreterPrePrologue(TR::Instruction *c
    {
    TR_UNIMPLEMENTED();
    return cursor; // to make compiler happy
+   }
+
+TR::Register *
+J9::RV::CodeGenerator::getTempRegister()
+   {
+   return self()->machine()->getRealRegister(TR::RealRegister::t2);
    }
